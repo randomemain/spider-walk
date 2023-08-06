@@ -65,7 +65,7 @@ void sortBridgesInStrands(SpiderWeb *spiderWeb)
 // Function to add a bridge between two strands
 void addBridge(SpiderWeb *spiderWeb, int from, int distance, int isNew)
 {
-    Bridge bridge, *peek;
+    Bridge bridge;
     bridge.distance = distance;
     bridge.isNew = isNew;
 
@@ -76,14 +76,12 @@ void addBridge(SpiderWeb *spiderWeb, int from, int distance, int isNew)
     bridge.targetStrand = to;
     Strand *strand = &(spiderWeb->strands[from]);
     strand->bridges = realloc(strand->bridges, (strand->numBridges + 1) * sizeof(Bridge));
-    peek = &(strand->bridges[strand->numBridges]);
     strand->bridges[strand->numBridges++] = bridge;
 
     // Add the bridge from 'to' strand to 'from' strand (bidirectional bridge)
     bridge.targetStrand = from;
     strand = &(spiderWeb->strands[to]);
     strand->bridges = realloc(strand->bridges, (strand->numBridges + 1) * sizeof(Bridge));
-    peek = &(strand->bridges[strand->numBridges]);
     strand->bridges[strand->numBridges++] = bridge;
 }
 
